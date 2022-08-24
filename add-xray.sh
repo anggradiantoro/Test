@@ -13,7 +13,7 @@ xtls="$(cat ~/log-install.txt | grep -w "VLESS TCP XTLS" | cut -d: -f2|sed 's/ /
 
 until [[ $user =~ ^[a-zA-Z0-9_]+$ && ${CLIENT_EXISTS} == '0' ]]; do
 		read -rp "Username : " -e user
-		CLIENT_EXISTS=$(grep -w $user /usr/local/etc/xray/xtls.json | wc -l)
+		CLIENT_EXISTS=$(grep -w $user /usr/local/etc/xray-mini/xtls.json | wc -l)
 
 		if [[ ${CLIENT_EXISTS} == '1' ]]; then
 			echo ""
@@ -30,7 +30,7 @@ hariini=`date -d "0 days" +"%Y-%m-%d"`
 
 # // Input To Server
 sed -i '/#xtls$/a\### '"$user $exp"'\
-},{"id": "'""$uuid""'","flow": "xtls-rprx-direct","email": "'""$user""'"' /usr/local/etc/xray/xtls.json
+},{"id": "'""$uuid""'","flow": "xtls-rprx-direct","email": "'""$user""'"' /usr/local/etc/xray-mini/xtls.json
 
 vless_direct1="vless://${uuid}@${domain}:${xtls}?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-direct&sni=bug.com#XRAY_VLESS_DIRECT_$user"
 vless_direct2="vless://${uuid}@${domain}:${xtls}?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-direct-udp443&sni=bug.com#XRAY_VLESS_DIRECTUDP443_$user"
@@ -38,7 +38,7 @@ vless_splice3="vless://${uuid}@${domain}:${xtls}?security=xtls&encryption=none&h
 vless_splice4="vless://${uuid}@${domain}:${xtls}?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-splice-udp443&sni=bug.com#XRAY_VLESS_SPLICEUDP443_$user"
 
 # // Restarting Service
-systemctl restart xray@xtls
+systemctl restart xray-mini@xtls
 service cron restart
 clear
 echo -e ""

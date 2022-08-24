@@ -11,7 +11,7 @@ uuid=$(cat /proc/sys/kernel/random/uuid)
 xrtr="$(cat ~/log-install.txt | grep -w "TROJAN TCP XTLS" | cut -d: -f2|sed 's/ //g')"
 until [[ $user =~ ^[a-zA-Z0-9_]+$ && ${CLIENT_EXISTS} == '0' ]]; do
 		read -rp "Username : " -e user
-		CLIENT_EXISTS=$(grep -w $user /usr/local/etc/xray/akunxtrojan.conf | wc -l)
+		CLIENT_EXISTS=$(grep -w $user /usr/local/etc/xray-mini/xtrojan.json | wc -l)
 
 		if [[ ${CLIENT_EXISTS} == '1' ]]; then
 			echo ""
@@ -24,16 +24,15 @@ uuid=$(cat /proc/sys/kernel/random/uuid)
 read -p "Expired (Days) : " masaaktif
 hariini=`date -d "0 days" +"%Y-%m-%d"`
 exp=`date -d "$masaaktif days" +"%Y-%m-%d"`
-echo -e "### $user $exp" >> /usr/local/etc/xray/akunxtrojan.conf
 sed -i '/#trojan-xtls$/a\### '"$user $exp"'\
-},{"password": "'""$uuid""'","flow": "xtls-rprx-direct","email": "'""$user""'"' /usr/local/etc/xray/xtrojan.json
+},{"password": "'""$uuid""'","flow": "xtls-rprx-direct","email": "'""$user""'"' /usr/local/etc/xray-mini/xtrojan.json
 
 trojanlink1="trojan://${uuid}@${domain}:${xrtr}?allowInsecure=1&security=xtls&headerType=none&type=tcp&flow=xtls-rprx-direct&sni=bug.com#XRAY_TROJAN_DIRECT_${user}"
 trojanlink2="trojan://${uuid}@${domain}:${xrtr}?allowInsecure=1&security=xtls&headerType=none&type=tcp&flow=xtls-rprx-direct-udp443&sni=bug.com#XRAY_TROJAN_DIRECTUDP443_${user}"
 trojanlink3="trojan://${uuid}@${domain}:${xrtr}?allowInsecure=1&security=xtls&headerType=none&type=tcp&flow=xtls-rprx-splice&sni=bug.com#XRAY_TROJAN_SPLICE_${user}"
 trojanlink4="trojan://${uuid}@${domain}:${xrtr}?allowInsecure=1&security=xtls&headerType=none&type=tcp&flow=xtls-rprx-splice-udp443&sni=bug.com#XRAY_TROJAN_SPLICEUDP443_${user}"
 
-systemctl restart xray@xtrojan
+systemctl restart xray-mini@xtrojan
 service cron restart
 clear
 echo -e ""

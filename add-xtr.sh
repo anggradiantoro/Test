@@ -11,7 +11,7 @@ domain=$(cat /usr/local/etc/xray/domain)
 xtr="$(cat ~/log-install.txt | grep -w "TROJAN TCP TLS" | cut -d: -f2|sed 's/ //g')"
 until [[ $user =~ ^[a-zA-Z0-9_]+$ && ${user_EXISTS} == '0' ]]; do
 		read -rp "Username : " -e user
-		user_EXISTS=$(grep -w $user /usr/local/etc/xray-mini/trojan.json | wc -l)
+		user_EXISTS=$(grep -w $user /usr/local/etc/xray/trojan.json | wc -l)
 
 		if [[ ${user_EXISTS} == '1' ]]; then
 			echo ""
@@ -24,10 +24,10 @@ read -p "Expired (days): " masaaktif
 hariini=`date -d "0 days" +"%Y-%m-%d"`
 exp=`date -d "$masaaktif days" +"%Y-%m-%d"`
 sed -i '/#tr$/a\### '"$user $exp"'\
-},{"password": "'""$uuid""'"' /usr/local/etc/xray-mini/trojan.json
+},{"password": "'""$uuid""'"' /usr/local/etc/xray/trojan.json
 trojanlink="trojan://${uuid}@${domain}:${xtr}?security=tls&type=tcp&allowInsecure=1&sni=bug.com#XRAY_TROJAN_TCP_${user}"
 # // Restarting Service
-systemctl restart xray-mini@trojan
+systemctl restart xray@trojan
 service cron restart
 clear
 echo -e ""

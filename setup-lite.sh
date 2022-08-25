@@ -70,7 +70,7 @@ sleep 1
 #Install SSH-VPN
 echo -e "\e[0;32mINSTALLING SSH-VPN...\e[0m"
 sleep 1
-wget https://raw.githubusercontent.com/vinstechmy/Test/main/ssh-vpn.sh && chmod +x ssh-vpn.sh && ./ssh-vpn.sh
+wget https://raw.githubusercontent.com/vinstechmy/multiport-websocket/main/SETUP/ssh-vpn.sh && chmod +x ssh-vpn.sh && ./ssh-vpn.sh
 echo -e "\e[0;32mDONE INSTALLING SSH-VPN\e[0m"
 echo -e ""
 sleep 1

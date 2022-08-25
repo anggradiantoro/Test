@@ -79,46 +79,6 @@ ln -fs /usr/share/zoneinfo/Asia/Kuala_Lumpur /etc/localtime
 # set locale
 sed -i 's/AcceptEnv/#AcceptEnv/g' /etc/ssh/sshd_config
 
-# ~/.profile: executed by Bourne-compatible login shells.
-if [ "$BASH" ]; then
-  if [ -f ~/.bashrc ]; then
-    . ~/.bashrc
-  fi
-fi
-mesg n || true
-clear
-neofetch
-END
-chmod 644 /root/.profile
-
-# // Nginx
-installType='apt -y install'
-source /etc/os-release
-release=$ID
-ver=$VERSION_ID
-
-if [[ "${release}" == "debian" ]]; then
-		sudo apt install gnupg2 ca-certificates lsb-release -y 
-		echo "deb http://nginx.org/packages/mainline/debian $(lsb_release -cs) nginx" | sudo tee /etc/apt/sources.list.d/nginx.list 
-		echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" | sudo tee /etc/apt/preferences.d/99nginx 
-		curl -o /tmp/nginx_signing.key https://nginx.org/keys/nginx_signing.key 
-		# gpg --dry-run --quiet --import --import-options import-show /tmp/nginx_signing.key
-		sudo mv /tmp/nginx_signing.key /etc/apt/trusted.gpg.d/nginx_signing.asc
-		sudo apt update 
-                apt -y install nginx
-
-elif [[ "${release}" == "ubuntu" ]]; then
-		sudo apt install gnupg2 ca-certificates lsb-release -y 
-		echo "deb http://nginx.org/packages/mainline/ubuntu $(lsb_release -cs) nginx" | sudo tee /etc/apt/sources.list.d/nginx.list
-		echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" | sudo tee /etc/apt/preferences.d/99nginx 
-		curl -o /tmp/nginx_signing.key https://nginx.org/keys/nginx_signing.key
-		# gpg --dry-run --quiet --import --import-options import-show /tmp/nginx_signing.key
-		sudo mv /tmp/nginx_signing.key /etc/apt/trusted.gpg.d/nginx_signing.asc
-		sudo apt update 
-                apt -y install nginx
-fi
-
-
 install_ssl(){
     if [ -f "/usr/bin/apt-get" ];then
             isDebian=`cat /etc/issue|grep Debian`

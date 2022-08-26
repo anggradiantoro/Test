@@ -42,7 +42,7 @@ echo -e "Telegram : t.me/vinstechmy"
 rm -f setup-lite.sh
 exit 0
 fi
-if [ -f "/etc/v2ray/domain" ]; then
+if [ -f "/usr/local/etc/xray/domain" ]; then
 echo "Script Already Installed"
 exit 0
 fi
@@ -70,14 +70,14 @@ sleep 1
 #Install SSH-VPN
 echo -e "\e[0;32mINSTALLING SSH-VPN...\e[0m"
 sleep 1
-wget https://raw.githubusercontent.com/vinstechmy/Test/main/ssh-vpn.sh && chmod +x ssh-vpn.sh && ./ssh-vpn.sh
+#wget https://raw.githubusercontent.com/vinstechmy/Test/main/ssh-vpn.sh && chmod +x ssh-vpn.sh && ./ssh-vpn.sh
 echo -e "\e[0;32mDONE INSTALLING SSH-VPN\e[0m"
 echo -e ""
 sleep 1
 #Install Xray
 echo -e "\e[0;32mINSTALLING XRAY CORE...\e[0m"
 sleep 1
-wget https://raw.githubusercontent.com/vinstechmy/Test/main/ins-xray.sh && chmod +x ins-xray.sh && screen -S ins-xray ./ins-xray.sh
+#wget https://raw.githubusercontent.com/vinstechmy/Test/main/ins-xray.sh && chmod +x ins-xray.sh && screen -S ins-xray ./ins-xray.sh
 echo -e "\e[0;32mDONE INSTALLING XRAY CORE\e[0m"
 echo -e ""
 sleep 1
@@ -96,9 +96,7 @@ ln -fs /usr/share/zoneinfo/Asia/Kuala_Lumpur /etc/localtime
 apt install jq curl -y
 
 #finish
-rm -f /root/ins-xray.sh
-rm -f /root/set-br.sh
-rm -f /root/ssh-vpn.sh
+
 # Colour Default
 echo "1;36m" > /etc/banner
 echo "30m" > /etc/box
@@ -157,4 +155,5 @@ echo -e "Thanks For Installing This Autoscript-Lite :)"
 echo -e "VPS Will Reboot . . ."
 sleep 3
 rm -r setup-lite.sh
-reboot
+clear
+menu

@@ -14,6 +14,58 @@
       },
       "tag": "api"
     },
+{
+            "port": 443,
+            "protocol": "vless",
+            "settings": {
+                "clients": [
+                    {
+                        "id": "cc552d5d-d484-4788-a078-679cd2ffe9db",
+                        "flow": "xtls-rprx-direct",
+                        "level": 0,
+                        "email": ""
+#xtls
+                    }
+                ],
+                "decryption": "none",
+                "fallbacks": [
+                    {
+                        "dest": 1310,
+                        "xver": 1
+                    },
+                    {
+                        "path": "/vlessws",
+                        "dest": 14016,
+                        "xver": 1
+                    },
+                    {
+                        "path": "/vmessws",
+                        "dest": 23456,
+                        "xver": 1
+                    },
+                    {
+                        "path": "/trojanws",
+                        "dest": 25432,
+                        "xver": 1
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "security": "xtls",
+                "xtlsSettings": {
+                    "alpn": [
+                        "http/1.1"
+                    ],
+                    "certificates": [
+                        {
+                            "certificateFile": "/usr/local/etc/xray/xray.crt",
+                            "keyFile": "/usr/local/etc/xray/xray.key"
+                        }
+                    ]
+                }
+            }
+        },
    {
      "listen": "127.0.0.1",
      "port": "14016",
@@ -22,7 +74,7 @@
           "decryption":"none",
             "clients": [
                {
-                 "id": "$uuid"                 
+                 "id": "72a4e114-846c-411b-8d34-800c956bdd4b"                 
 #vless
              }
           ]
@@ -30,7 +82,7 @@
        "streamSettings":{
          "network": "ws",
             "wsSettings": {
-                "path": "/vless"
+                "path": "/vlessws"
           }
         }
      },
@@ -50,7 +102,7 @@
        "streamSettings":{
          "network": "ws",
             "wsSettings": {
-                "path": "/vmess"
+                "path": "/vmessws"
           }
         }
      },
@@ -62,7 +114,8 @@
           "decryption":"none",		
            "clients": [
               {
-                 "password": "$uuid"
+                 "password": "
+4b4175c7-031f-4fd9-b1bf-932d1e4aaabd"
 #trojanws
               }
           ],

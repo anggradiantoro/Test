@@ -21,7 +21,7 @@ echo -e "\e[0m"
 echo ""
 sleep 1
 # Insert Password
-Password=VinstechmyFreeAutoscriptsLite
+Password=bagosans
 # Execute
 read -p "Please Insert The License Key : " Passwordnya
 if [ $Password = $Passwordnya ]; then
